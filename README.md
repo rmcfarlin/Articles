@@ -3,7 +3,7 @@
 Published articles by Robert McFarlin, written in NEO.
 
 The site is built with [Jekyll](https://jekyllrb.com) and served by GitHub Pages at
-**https://rmcfarlin.github.io/Articles/**.
+**https://robertmcfarlin.com/Articles/**.
 
 ## Publishing an article
 
@@ -34,10 +34,10 @@ anything in `_drafts/` is never published.
 | About page                    | `about.md`                |
 | Colors, type, layout          | `assets/css/main.css`     |
 
-## One-time GitHub Pages setup
+## GitHub Pages
 
-In the repo on GitHub: **Settings → Pages → Build and deployment**, set
-**Source** to *Deploy from a branch*, **Branch** to `main` and folder `/ (root)`.
+Pages deploys from the `main` branch, `/ (root)` folder (**Settings → Pages**). Because the
+account has a custom domain, the site is served at `robertmcfarlin.com/Articles/`.
 
 ## Previewing locally (optional)
 

@@ -12,9 +12,9 @@ author:
   bio: I write here about the things I'm working on and thinking through.
   github: rmcfarlin
 
-# GitHub Pages project site: https://rmcfarlin.github.io/Articles/
-# If you later use a custom domain, set url to it and baseurl to "".
-url: "https://rmcfarlin.github.io"
+# Served as a GitHub Pages project site under the account's custom domain:
+# https://robertmcfarlin.com/Articles/
+url: "https://robertmcfarlin.com"
 baseurl: "/Articles"
 
 # Articles live at /articles/<file-name-without-date>/
