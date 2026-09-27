@@ -1,6 +1,7 @@
 ---
 title: About
 description: Who's writing, and what this site is for.
+eyebrow: About
 permalink: /about/
 ---
 

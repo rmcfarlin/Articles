@@ -1,31 +1,36 @@
 ---
 layout: default
 title: Archive
-description: Everything, by year.
+description: Every article, newest first.
 permalink: /articles/
 ---
-<header class="page-head">
-  <h1>{{ page.title }}</h1>
-  <p class="page-sub">{{ page.description }}</p>
+{%- assign years = site.posts | group_by_exp: "post", "post.date | date: '%Y'" -%}
+<header class="masthead masthead--page">
+  <div class="container container--text">
+    <h1 class="display">{{ page.title }}</h1>
+    <p class="dek">{{ page.description }}</p>
+    {%- if site.posts.size > 0 %}
+    <label class="search">
+      {% include icon.html name="search" %}
+      <span class="sr-only">Search articles</span>
+      <input type="search" placeholder="Search by title, topic, or phrase" autocomplete="off" data-search-input>
+    </label>
+    {%- endif %}
+  </div>
 </header>
 
-{%- assign years = site.posts | group_by_exp: "post", "post.date | date: '%Y'" -%}
-{%- if years.size > 0 %}
-<div class="columns">
+<div class="container container--text page-body">
   {%- for year in years %}
-  <section class="panel" id="y{{ year.name }}" aria-labelledby="year-{{ year.name }}">
-    <div class="panel-head">
-      <h2 class="panel-title" id="year-{{ year.name }}">{{ year.name }}</h2>
-      <span class="count">{{ year.items.size }}</span>
-    </div>
-    <div class="cards">
+  <section class="index-group" data-group aria-labelledby="year-{{ year.name }}">
+    <h2 class="index-heading" id="year-{{ year.name }}">{{ year.name }}</h2>
+    <ul class="index-list">
       {%- for post in year.items %}
-      {% include post-card.html post=post compact=true %}
+      {% include index-row.html post=post %}
       {%- endfor %}
-    </div>
+    </ul>
   </section>
+  {%- else %}
+  <p class="empty">No articles yet.</p>
   {%- endfor %}
+  <p class="empty" data-empty hidden>No articles match that search.</p>
 </div>
-{%- else %}
-<p class="empty empty--page">No articles yet.</p>
-{%- endif %}

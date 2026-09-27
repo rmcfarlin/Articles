@@ -1,21 +1,9 @@
-# Sidebar links. `key` is the keyboard shortcut shown beside each one.
+# Header and footer links.
 - title: Articles
   url: /
-  icon: book
-  key: "1"
 - title: Topics
   url: /topics/
-  icon: tag
-  key: "2"
 - title: Archive
   url: /articles/
-  icon: archive
-  key: "3"
 - title: About
   url: /about/
-  icon: user
-  key: "4"
-- title: RSS feed
-  url: /feed.xml
-  icon: rss
-  key: "5"

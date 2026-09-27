@@ -8,7 +8,7 @@ Opening paragraphs set in the reading serif. **Bold**, *italic*, `inline code`, 
 
 ## A second-level heading
 
-Short paragraphs read best on screen. Break long arguments into sections with `##` headings; they show up in the sans-serif UI face.
+Short paragraphs read best on screen. Break long arguments into sections with `##` headings; they are set in the headline serif.
 
 ### Lists
 

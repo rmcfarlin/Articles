@@ -12,6 +12,11 @@ author:
   bio: I write here about the things I'm working on and thinking through.
   github: rmcfarlin
 
+# Home page masthead.
+hero:
+  eyebrow: Articles
+  title: Essays and notes by Robert McFarlin.
+
 # Served as a GitHub Pages project site under the account's custom domain:
 # https://robertmcfarlin.com/Articles/
 url: "https://robertmcfarlin.com"

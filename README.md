@@ -15,6 +15,8 @@ The site is built with [Jekyll](https://jekyllrb.com) and served by GitHub Pages
    title: The title of the article
    description: One or two sentences shown on the article card and in search results.
    tags: [finance, operations]
+   image: /assets/images/cover.jpg   # optional cover image
+   image_alt: What the image shows   # optional
    ---
    ```
 
@@ -29,8 +31,8 @@ anything in `_drafts/` is never published.
 
 | What                          | Where                     |
 |-------------------------------|---------------------------|
-| Name, description, bio, URL   | `_config.yml`             |
-| Sidebar links and shortcuts   | `_data/navigation.yml`    |
+| Name, bio, home headline, URL | `_config.yml`             |
+| Header and footer links       | `_data/navigation.yml`    |
 | About page                    | `about.md`                |
 | Colors, type, layout          | `assets/css/main.css`     |
 

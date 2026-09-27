@@ -1,64 +1,85 @@
 ---
 layout: default
 ---
-{%- assign words = content | strip_html | number_of_words -%}
-{%- assign minutes = words | plus: 110 | divided_by: 220 | at_least: 1 -%}
 <div class="progress" aria-hidden="true"><span data-progress></span></div>
 
-<div class="reading">
-  <a class="back-link" href="{{ '/' | relative_url }}">{% include icon.html name="arrow-left" %}All articles</a>
-
-  <article class="panel article" data-article="{{ page.url | relative_url }}">
-    <div class="panel-head">
-      <span class="panel-title">Article</span>
-      <span class="count">{{ minutes }} min read</span>
-      <time class="panel-aside" datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%b %-d, %Y" }}</time>
-    </div>
-
-    <div class="paper">
-      <header class="article-head">
-        {%- if page.tags.size > 0 %}
-        <div class="chips">
-          {%- for tag in page.tags %}
-          <a class="chip" href="{{ '/topics/' | relative_url }}#{{ tag | slugify }}">#{{ tag }}</a>
-          {%- endfor %}
-        </div>
-        {%- endif %}
-        <h1>{{ page.title | escape }}</h1>
-        {%- if page.description %}
-        <p class="dek">{{ page.description }}</p>
-        {%- endif %}
-        <div class="byline">
-          <span class="avatar" aria-hidden="true">{{ site.author.initials }}</span>
-          <span class="byline-text">
-            <strong>{{ page.author | default: site.author.name }}</strong>
-            <span><time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %-d, %Y" }}</time> · {{ minutes }} min read</span>
-          </span>
-        </div>
-      </header>
-
-      <div class="prose">
-        {{ content }}
+<article class="article" data-article>
+  <header class="masthead masthead--article">
+    <div class="container container--text">
+      {%- if page.tags.size > 0 %}
+      <div class="kicker">
+        {%- for tag in page.tags -%}
+        <a href="{{ '/topics/' | relative_url }}#{{ tag | slugify }}">{{ tag }}</a>{% unless forloop.last %}<span aria-hidden="true"> · </span>{% endunless %}
+        {%- endfor -%}
       </div>
-
-      <footer class="article-end" aria-hidden="true"><span class="brand-mark"></span></footer>
+      {%- endif %}
+      <h1 class="display">{{ page.title | escape }}</h1>
+      {%- if page.description %}
+      <p class="dek">{{ page.description }}</p>
+      {%- endif %}
+      <div class="byline">
+        <span class="avatar" aria-hidden="true">{{ site.author.initials }}</span>
+        <div>
+          <a class="byline-name" href="{{ '/about/' | relative_url }}">{{ page.author | default: site.author.name }}</a>
+          <p class="meta">
+            <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %-d, %Y" }}</time>
+            <span aria-hidden="true">·</span>
+            <span>{% include reading-time.html content=content %}</span>
+          </p>
+        </div>
+      </div>
     </div>
-  </article>
+  </header>
 
-  {%- if page.previous or page.next %}
-  <nav class="pager" aria-label="More articles">
-    {%- if page.previous %}
-    <a class="card pager-card" href="{{ page.previous.url | relative_url }}">
-      <span class="pager-label">{% include icon.html name="arrow-left" %}Older</span>
-      <span class="pager-title">{{ page.previous.title | escape }}</span>
-    </a>
-    {%- endif %}
-    {%- if page.next %}
-    <a class="card pager-card pager-card--next" href="{{ page.next.url | relative_url }}">
-      <span class="pager-label">Newer{% include icon.html name="arrow-right" %}</span>
-      <span class="pager-title">{{ page.next.title | escape }}</span>
-    </a>
-    {%- endif %}
-  </nav>
+  {%- if page.image %}
+  <figure class="container cover">
+    <img src="{{ page.image | relative_url }}" alt="{{ page.image_alt | default: '' | escape }}">
+    {%- if page.image_caption %}<figcaption>{{ page.image_caption }}</figcaption>{% endif %}
+  </figure>
   {%- endif %}
-</div>
+
+  <div class="container container--text">
+    <div class="prose">
+      {{ content }}
+    </div>
+
+    <footer class="article-foot">
+      {%- if page.tags.size > 0 %}
+      <div class="tag-list">
+        {%- for tag in page.tags %}
+        <a class="tag" href="{{ '/topics/' | relative_url }}#{{ tag | slugify }}">{{ tag }}</a>
+        {%- endfor %}
+      </div>
+      {%- endif %}
+
+      <aside class="author-box">
+        <span class="avatar avatar--lg" aria-hidden="true">{{ site.author.initials }}</span>
+        <div>
+          <p class="author-box-label">Written by</p>
+          <p class="author-box-name">{{ site.author.name }}</p>
+          <p class="author-box-bio">{{ site.author.bio }}</p>
+          <p class="author-box-links">
+            <a href="{{ '/about/' | relative_url }}">About me</a>
+            <a href="{{ '/feed.xml' | relative_url }}">Subscribe via RSS</a>
+          </p>
+        </div>
+      </aside>
+    </footer>
+  </div>
+</article>
+
+{%- if page.previous or page.next %}
+<section class="keep-reading" aria-labelledby="keep-reading">
+  <div class="container">
+    <h2 class="section-title" id="keep-reading">Keep reading</h2>
+    <div class="keep-grid">
+      {%- if page.next %}
+      {% include keep-card.html post=page.next label="Newer" %}
+      {%- endif %}
+      {%- if page.previous %}
+      {% include keep-card.html post=page.previous label="Older" %}
+      {%- endif %}
+    </div>
+  </div>
+</section>
+{%- endif %}

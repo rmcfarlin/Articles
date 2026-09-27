@@ -1,0 +1,8 @@
+{%- assign p = include.post -%}
+{%- assign tag_text = p.tags | join: " " -%}
+{%- assign excerpt = p.description | default: p.excerpt | strip_html | normalize_whitespace -%}
+<li class="index-row" data-post data-search="{{ p.title | append: ' ' | append: excerpt | append: ' ' | append: tag_text | downcase | escape }}">
+  <time class="index-date" datetime="{{ p.date | date_to_xmlschema }}">{{ p.date | date: "%b %-d" }}</time>
+  <a class="index-title" href="{{ p.url | relative_url }}">{{ p.title | escape }}</a>
+  <span class="index-time">{% include reading-time.html content=p.content %}</span>
+</li>

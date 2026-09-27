@@ -1,0 +1,7 @@
+{%- assign p = include.post -%}
+<a class="keep-card" href="{{ p.url | relative_url }}">
+  <span class="eyebrow">{{ include.label }}</span>
+  <span class="keep-title">{{ p.title | escape }}</span>
+  <span class="keep-excerpt">{{ p.description | default: p.excerpt | strip_html | normalize_whitespace | truncatewords: 26 }}</span>
+  <span class="meta">{{ p.date | date: "%B %-d, %Y" }} · {% include reading-time.html content=p.content %}</span>
+</a>

@@ -1,0 +1,29 @@
+{%- assign p = include.post -%}
+{%- assign excerpt = p.description | default: p.excerpt | strip_html | normalize_whitespace | truncatewords: 40 -%}
+{%- assign tag_text = p.tags | join: " " -%}
+<article class="post-row{% if p.image %} post-row--image{% endif %}" data-post
+  data-search="{{ p.title | append: ' ' | append: excerpt | append: ' ' | append: tag_text | downcase | escape }}">
+  <div class="post-row-body">
+    {%- if p.tags.size > 0 %}
+    <div class="kicker">
+      {%- for tag in p.tags limit: 2 -%}
+      <a href="{{ '/topics/' | relative_url }}#{{ tag | slugify }}">{{ tag }}</a>{% unless forloop.last %}<span aria-hidden="true"> · </span>{% endunless %}
+      {%- endfor -%}
+    </div>
+    {%- endif %}
+    <h3 class="post-row-title"><a href="{{ p.url | relative_url }}">{{ p.title | escape }}</a></h3>
+    {%- unless include.compact %}
+    <p class="post-row-excerpt">{{ excerpt }}</p>
+    {%- endunless %}
+    <p class="meta">
+      <time datetime="{{ p.date | date_to_xmlschema }}">{{ p.date | date: "%B %-d, %Y" }}</time>
+      <span aria-hidden="true">·</span>
+      <span>{% include reading-time.html content=p.content %}</span>
+    </p>
+  </div>
+  {%- if p.image and include.compact == nil %}
+  <a class="post-row-media" href="{{ p.url | relative_url }}" tabindex="-1" aria-hidden="true">
+    <img src="{{ p.image | relative_url }}" alt="" loading="lazy">
+  </a>
+  {%- endif %}
+</article>

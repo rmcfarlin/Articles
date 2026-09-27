@@ -5,12 +5,11 @@
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
-  {% include backdrop.html %}
-  {% include sidebar.html %}
-  <main id="main" class="main">
+  {% include header.html %}
+  <main id="main">
     {{ content }}
-    {% include footer.html %}
   </main>
+  {% include footer.html %}
   <script src="{{ '/assets/js/site.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
 </body>
 </html>
