@@ -1,0 +1,31 @@
+---
+layout: default
+title: Topics
+description: Every article, grouped by topic.
+permalink: /topics/
+---
+<header class="page-head">
+  <h1>{{ page.title }}</h1>
+  <p class="page-sub">{{ page.description }}</p>
+</header>
+
+{%- assign tags = site.tags | sort -%}
+{%- if tags.size > 0 %}
+<div class="columns">
+  {%- for tag in tags %}
+  <section class="panel" id="{{ tag[0] | slugify }}" aria-labelledby="topic-{{ tag[0] | slugify }}">
+    <div class="panel-head">
+      <h2 class="panel-title" id="topic-{{ tag[0] | slugify }}">#{{ tag[0] }}</h2>
+      <span class="count">{{ tag[1].size }}</span>
+    </div>
+    <div class="cards">
+      {%- for post in tag[1] %}
+      {% include post-card.html post=post compact=true %}
+      {%- endfor %}
+    </div>
+  </section>
+  {%- endfor %}
+</div>
+{%- else %}
+<p class="empty empty--page">No topics yet. Add <code>tags: [one, two]</code> to an article's front matter and it will show up here.</p>
+{%- endif %}

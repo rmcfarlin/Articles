@@ -1,0 +1,53 @@
+# ─────────────────────────────────────────────────────────────
+#  Site settings — edit these to make the site yours.
+# ─────────────────────────────────────────────────────────────
+title: Robert McFarlin
+tagline: Articles
+description: Essays and notes by Robert McFarlin, published as they're written.
+lang: en
+
+author:
+  name: Robert McFarlin
+  initials: RM
+  bio: I write here about the things I'm working on and thinking through.
+  github: rmcfarlin
+
+# GitHub Pages project site: https://rmcfarlin.github.io/Articles/
+# If you later use a custom domain, set url to it and baseurl to "".
+url: "https://rmcfarlin.github.io"
+baseurl: "/Articles"
+
+# Articles live at /articles/<file-name-without-date>/
+permalink: /articles/:title/
+
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+# All three are on GitHub Pages' supported plugin list.
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+  - scope:
+      path: ""
+      type: pages
+    values:
+      layout: page
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - .bundle
+  - .jekyll-cache

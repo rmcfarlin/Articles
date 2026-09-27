@@ -1,0 +1,64 @@
+---
+layout: default
+---
+{%- assign words = content | strip_html | number_of_words -%}
+{%- assign minutes = words | plus: 110 | divided_by: 220 | at_least: 1 -%}
+<div class="progress" aria-hidden="true"><span data-progress></span></div>
+
+<div class="reading">
+  <a class="back-link" href="{{ '/' | relative_url }}">{% include icon.html name="arrow-left" %}All articles</a>
+
+  <article class="panel article" data-article="{{ page.url | relative_url }}">
+    <div class="panel-head">
+      <span class="panel-title">Article</span>
+      <span class="count">{{ minutes }} min read</span>
+      <time class="panel-aside" datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%b %-d, %Y" }}</time>
+    </div>
+
+    <div class="paper">
+      <header class="article-head">
+        {%- if page.tags.size > 0 %}
+        <div class="chips">
+          {%- for tag in page.tags %}
+          <a class="chip" href="{{ '/topics/' | relative_url }}#{{ tag | slugify }}">#{{ tag }}</a>
+          {%- endfor %}
+        </div>
+        {%- endif %}
+        <h1>{{ page.title | escape }}</h1>
+        {%- if page.description %}
+        <p class="dek">{{ page.description }}</p>
+        {%- endif %}
+        <div class="byline">
+          <span class="avatar" aria-hidden="true">{{ site.author.initials }}</span>
+          <span class="byline-text">
+            <strong>{{ page.author | default: site.author.name }}</strong>
+            <span><time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %-d, %Y" }}</time> · {{ minutes }} min read</span>
+          </span>
+        </div>
+      </header>
+
+      <div class="prose">
+        {{ content }}
+      </div>
+
+      <footer class="article-end" aria-hidden="true"><span class="brand-mark"></span></footer>
+    </div>
+  </article>
+
+  {%- if page.previous or page.next %}
+  <nav class="pager" aria-label="More articles">
+    {%- if page.previous %}
+    <a class="card pager-card" href="{{ page.previous.url | relative_url }}">
+      <span class="pager-label">{% include icon.html name="arrow-left" %}Older</span>
+      <span class="pager-title">{{ page.previous.title | escape }}</span>
+    </a>
+    {%- endif %}
+    {%- if page.next %}
+    <a class="card pager-card pager-card--next" href="{{ page.next.url | relative_url }}">
+      <span class="pager-label">Newer{% include icon.html name="arrow-right" %}</span>
+      <span class="pager-title">{{ page.next.title | escape }}</span>
+    </a>
+    {%- endif %}
+  </nav>
+  {%- endif %}
+</div>

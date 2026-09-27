@@ -1,0 +1,17 @@
+---
+layout: default
+---
+<div class="reading">
+  <header class="page-head">
+    <h1>{{ page.title | escape }}</h1>
+    {%- if page.description %}<p class="page-sub">{{ page.description }}</p>{% endif %}
+  </header>
+  <section class="panel">
+    <div class="panel-head"><span class="panel-title">{{ page.label | default: page.title }}</span></div>
+    <div class="paper">
+      <div class="prose">
+        {{ content }}
+      </div>
+    </div>
+  </section>
+</div>

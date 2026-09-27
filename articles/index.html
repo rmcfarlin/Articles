@@ -1,0 +1,31 @@
+---
+layout: default
+title: Archive
+description: Everything, by year.
+permalink: /articles/
+---
+<header class="page-head">
+  <h1>{{ page.title }}</h1>
+  <p class="page-sub">{{ page.description }}</p>
+</header>
+
+{%- assign years = site.posts | group_by_exp: "post", "post.date | date: '%Y'" -%}
+{%- if years.size > 0 %}
+<div class="columns">
+  {%- for year in years %}
+  <section class="panel" id="y{{ year.name }}" aria-labelledby="year-{{ year.name }}">
+    <div class="panel-head">
+      <h2 class="panel-title" id="year-{{ year.name }}">{{ year.name }}</h2>
+      <span class="count">{{ year.items.size }}</span>
+    </div>
+    <div class="cards">
+      {%- for post in year.items %}
+      {% include post-card.html post=post compact=true %}
+      {%- endfor %}
+    </div>
+  </section>
+  {%- endfor %}
+</div>
+{%- else %}
+<p class="empty empty--page">No articles yet.</p>
+{%- endif %}
